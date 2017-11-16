@@ -11,6 +11,8 @@ namespace PureRest
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Player player;
         
         public Game1()
         {
@@ -27,6 +29,9 @@ namespace PureRest
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
+            player = new Player();
+
 
             base.Initialize();
         }
@@ -40,7 +45,10 @@ namespace PureRest
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            // Player
+            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y +
+                GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            player.Initialise(Content.Load<Texture2D>("Images/main-character"), playerPosition);
         }
 
         /// <summary>
@@ -59,7 +67,7 @@ namespace PureRest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F1))
                 Exit();
 
             // TODO: Add your update logic here
@@ -73,11 +81,18 @@ namespace PureRest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightSalmon);
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+
+            spriteBatch.Begin();
+
+            // Player
+            player.Draw(spriteBatch);
+
+            spriteBatch.End();
         }
     }
 }

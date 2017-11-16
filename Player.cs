@@ -26,9 +26,6 @@ namespace PureRest
         {
 
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(PlayerTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-        }
+        public void Draw(SpriteBatch spriteBatch) => spriteBatch.Draw(PlayerTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
     }
 }

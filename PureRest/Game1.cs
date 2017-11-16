@@ -28,10 +28,15 @@ namespace PureRest
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            
+            #region Full screen
+            //Set full screen
+            graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            #endregion
+            //init player
             player = new Player();
-
 
             base.Initialize();
         }
@@ -45,9 +50,9 @@ namespace PureRest
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Player
-            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y +
-                GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            // Player position (centre)
+            Vector2 playerPosition = new Vector2(x: GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
+                                                 y: GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialise(Content.Load<Texture2D>("Images/main-character"), playerPosition);
         }
 
@@ -81,7 +86,7 @@ namespace PureRest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.LightSalmon);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 

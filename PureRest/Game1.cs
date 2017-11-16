@@ -13,6 +13,7 @@ namespace PureRest
         SpriteBatch spriteBatch;
 
         Player player;
+        public float scale = 5f;   
         
         public Game1()
         {
@@ -51,8 +52,8 @@ namespace PureRest
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Player position (centre)
-            Vector2 playerPosition = new Vector2(x: GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
-                                                 y: GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            Vector2 playerPosition = new Vector2(x: (GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2)/scale,
+                                                 y: (GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2)/scale);
             player.Initialise(Content.Load<Texture2D>("Images/main-character"), playerPosition);
         }
 
@@ -92,7 +93,12 @@ namespace PureRest
 
             base.Draw(gameTime);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred
+                , BlendState.AlphaBlend
+                , SamplerState.PointClamp
+                , null, null, null
+                , Matrix.CreateScale(scale)
+                );
 
             // Player
             player.Draw(spriteBatch);

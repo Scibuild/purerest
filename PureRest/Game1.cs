@@ -13,7 +13,7 @@ namespace PureRest
         SpriteBatch spriteBatch;
 
         Player player;
-        public float scale = 5f;   
+        public float scale = 10f;   
         
         public Game1()
         {

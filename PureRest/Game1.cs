@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
+using PureRest.Sprites;
 
 namespace PureRest
 {
@@ -33,7 +36,7 @@ namespace PureRest
             //Set full screen
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             #endregion
             //init player
@@ -54,7 +57,7 @@ namespace PureRest
             // Player position (centre)
             Vector2 playerPosition = new Vector2(x: (GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2)/scale,
                                                  y: (GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2)/scale);
-            player.Initialise(Content.Load<Texture2D>("Images/main-character"), playerPosition);
+            player.Initialise(Content.Load<Texture2D>("Images/main-character"), playerPosition, 38, TimeSpan.FromMilliseconds(100));
         }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace PureRest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F1))
                 Exit();
 
-            // TODO: Add your update logic here
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }

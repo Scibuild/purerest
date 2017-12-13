@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PureRest
+
+namespace PureRest.Sprites
 {
-    public class Player : Sprite
+    interface IInteractive
     {
-        
+        bool Update(GameTime gameTime);
     }
 }

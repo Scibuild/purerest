@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PureRest
+namespace PureRest.Sprites
 {
     public class Sprite
     {
@@ -16,7 +16,7 @@ namespace PureRest
         public int Height { get { return SpriteTexture.Height; } }
 
         //-- Methods --//
-        public void Initialise(Texture2D texture, Vector2 startingPosition)
+        public Sprite(Texture2D texture, Vector2 startingPosition)
         {
             SpriteTexture = texture;
             Position = startingPosition;

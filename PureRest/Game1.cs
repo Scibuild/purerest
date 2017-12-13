@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -36,11 +37,9 @@ namespace PureRest
             //Set full screen
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             #endregion
-            //init player
-            player = new Player();
 
             base.Initialize();
         }
@@ -54,10 +53,19 @@ namespace PureRest
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+#region player
             // Player position (centre)
             Vector2 playerPosition = new Vector2(x: (GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2)/scale,
                                                  y: (GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2)/scale);
-            player.Initialise(Content.Load<Texture2D>("Images/main-character"), playerPosition, 38, TimeSpan.FromMilliseconds(100));
+
+            Dictionary<string, Tuple<int, int>> playerAnimations = new Dictionary<string, Tuple<int, int>>
+            {
+                { "idle", new Tuple<int, int>(0, 24) }
+            };
+
+            player = new Player(Content.Load<Texture2D>("Images/main-character"), playerPosition, 38, TimeSpan.FromMilliseconds(100),
+                playerAnimations , "idle" );
+#endregion
         }
 
         /// <summary>
@@ -76,7 +84,7 @@ namespace PureRest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F1))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             player.Update(gameTime);
